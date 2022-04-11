@@ -1,29 +1,48 @@
 ---
-title: "Untitled"
+title: "Time Series Data"
 output: html_document
-date: '2022-04-10'
+date: 'April 10, 2022'
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+The goal of this portfolio is to make sure that I can work with time series data when I have two variables from different data sets where the times do not match up perfectly. 
+Here, I have data on suicide rates from 1999-2019. I have data from a separate source on social media usage over time, covering 2015-2021. 
+Data on average number of minutes of U.S. social media usage by year comes from emarketer.com:
+https://www.emarketer.com/content/average-social-media-time-spent
+Data on suicide US rates comes from the official US government National Institute of Mental Health website:
+https://www.nimh.nih.gov/health/statistics/suicide#part_2557
+
+Let's see how we can isolate out only the years for which we have data on both variables, which would be the years 2015-2019.
+
+1) First, installing packages / libraries. 
+After creating my final visualization, then attempting to knit the file, R gave me an error message on line 12, so I removed this command from the knitted version:
+
+```{r Packages}
+install.packages('ggplot2')
+install.packages('tidyr')
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r Library} 
+library(ggplot2)
+library(tidyr)
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+2) To isolate the specific years 2015-2019, we can use the following code. 
+```{r Scatterplot1}
+DateRange [TimeSeries$Time >= "2015" & TimeSeries$Time <= "2019", ]
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+This generates a tibble, which we will need to convert into a reusable dataframe. 
+
+```{r Gapminder}
+library(gapminder)
+gapminder
+as.data.frame(gapminder)
+df=gapminder
+```
+
+
+```{r Remove df}
+rm(TimeSeries)
+```
+
+
