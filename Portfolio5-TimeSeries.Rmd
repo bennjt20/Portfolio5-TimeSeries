@@ -14,19 +14,19 @@ https://www.nimh.nih.gov/health/statistics/suicide#part_2557
 Let's see how we can isolate out only the years for which we have data on both variables, which would be the years 2015-2019.
 
 1) First, installing packages / libraries. 
-After creating my final visualization, then attempting to knit the file, R gave me an error message on line 20, so I removed this command from the knitted version:
+After creating my final visualization, then attempting to knit the file, R gave me repeated error messages here, so I removed this command and tried to knit again. Even after removing these commands, error messages resulted when knitting the plots. This was frustrating because I actually produced the graphs, they just would not knit. Therefore, I am keeping the code below for the sake of showing my work.
 
-``{r Packages}
+```{r Packages}
 install.packages('tidyr')
 install.packages('readr')
 ```
 
-```{r Library} 
+```{r Library}
 library(ggplot2)
 library(tidyr)
 ```
 
-``{r DataCSV} 
+```{r DataCSV} 
 library(readr)
 TimeSeries <- read_csv("~/Documents/GitHub/Portfolio5-TimeSeries/TimeSeries.csv")
 View(TimeSeries)
@@ -35,20 +35,23 @@ View(TimeSeries)
 2) To isolate the specific years 2015-2019, we can use the following code. This code creates a separate df named "DateRange" containing the specific years we are interested in. 
 The "write" command will save our df named "DateRange" as a csv. That way, we'll have a separate file containing our date range which we can share with others.
 
-``{r DateRange}
+```{r DateRange}
 DateRange <-TimeSeries [TimeSeries$Time >= "2015" & TimeSeries$Time <= "2019", ]
 write.csv(DateRange, "~/Documents/GitHub/Portfolio5-TimeSeries/CsvfromDf.csv")
 ```
 
-``{r Test1}
+```{r Test1}
 ggplot(DateRange, aes(Time)) +
   geom_line(aes(y = Value_SMM, color = "SMM")) + 
   geom_line(aes(y = Value_SR, color = "SR"))
 ```
 
+When I try to knit, I get an error: 
+could not find function "ggplot"
+
 Finally, to switch the color of these lines so that SR is red, we can manually change the colors assigned to each variable. Let's also add a legend.
 
-``{r Test2} 
+```{r Test2} 
 colors <- c("SMM" = "blue", "SR" = "red")
 ggplot(DateRange, aes(x=Time)) +
   geom_line(aes(y = Value_SMM, color = "SMM"), size = 1.5) +
@@ -61,6 +64,13 @@ labs(
 scale_color_manual(values = colors) 
 ```
 
+When I try to knit, I also get an error: 
+could not find function "ggplot"
 
+Saving plots to file to show that the code did produce graphs.
+```{r Save plot to file}
+ggsave('000009.png', width=8, height=8)
+ggsave('000010.png', width=8, height=8)
+```
 
 
