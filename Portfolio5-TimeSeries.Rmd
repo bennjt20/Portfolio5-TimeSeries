@@ -16,9 +16,9 @@ Let's see how we can isolate out only the years for which we have data on both v
 1) First, installing packages / libraries. 
 After creating my final visualization, then attempting to knit the file, R gave me an error message on line 20, so I removed this command from the knitted version:
 
-```{r Packages}
-install.packages('ggplot2')
+``{r Packages}
 install.packages('tidyr')
+install.packages('readr')
 ```
 
 ```{r Library} 
@@ -26,7 +26,7 @@ library(ggplot2)
 library(tidyr)
 ```
 
-```{r DataCSV} 
+``{r DataCSV} 
 library(readr)
 TimeSeries <- read_csv("~/Documents/GitHub/Portfolio5-TimeSeries/TimeSeries.csv")
 View(TimeSeries)
@@ -35,12 +35,12 @@ View(TimeSeries)
 2) To isolate the specific years 2015-2019, we can use the following code. This code creates a separate df named "DateRange" containing the specific years we are interested in. 
 The "write" command will save our df named "DateRange" as a csv. That way, we'll have a separate file containing our date range which we can share with others.
 
-```{r DateRange}
+``{r DateRange}
 DateRange <-TimeSeries [TimeSeries$Time >= "2015" & TimeSeries$Time <= "2019", ]
 write.csv(DateRange, "~/Documents/GitHub/Portfolio5-TimeSeries/CsvfromDf.csv")
 ```
 
-```{r Test1}
+``{r Test1}
 ggplot(DateRange, aes(Time)) +
   geom_line(aes(y = Value_SMM, color = "SMM")) + 
   geom_line(aes(y = Value_SR, color = "SR"))
@@ -48,7 +48,7 @@ ggplot(DateRange, aes(Time)) +
 
 Finally, to switch the color of these lines so that SR is red, we can manually change the colors assigned to each variable. Let's also add a legend.
 
-```{r Test2} 
+``{r Test2} 
 colors <- c("SMM" = "blue", "SR" = "red")
 ggplot(DateRange, aes(x=Time)) +
   geom_line(aes(y = Value_SMM, color = "SMM"), size = 1.5) +
