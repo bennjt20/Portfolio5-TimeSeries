@@ -14,7 +14,12 @@ https://www.nimh.nih.gov/health/statistics/suicide#part_2557
 Let's see how we can isolate out only the years for which we have data on both variables, which would be the years 2015-2019.
 
 1) First, installing packages / libraries. 
-After creating my final visualization, then attempting to knit the file, R gave me repeated error messages here, so I removed this command and tried to knit again. Even after removing these commands, error messages resulted when knitting the plots. This was frustrating because I actually produced the graphs, they just would not knit. Therefore, I am keeping the code below for the sake of showing my work.
+
+```{r Stop the errors!}
+r = getOption("repos")
+r["CRAN"] = "http://cran.us.r-project.org"
+options(repos = r)
+```
 
 ```{r Packages}
 install.packages('tidyr')
@@ -46,8 +51,9 @@ ggplot(DateRange, aes(Time)) +
   geom_line(aes(y = Value_SR, color = "SR"))
 ```
 
-When I try to knit, I get an error: 
+When I initially tried to knit, I gott an error: 
 could not find function "ggplot"
+The command "{r Stop the errors!}" at line 18 fixed the error!
 
 Finally, to switch the color of these lines so that SR is red, we can manually change the colors assigned to each variable. Let's also add a legend.
 
@@ -66,6 +72,7 @@ scale_color_manual(values = colors)
 
 When I try to knit, I also get an error: 
 could not find function "ggplot"
+Once more, the command "{r Stop the errors!}" at line 18 fixed the error!
 
 Saving plots to file to show that the code did produce graphs.
 ```{r Save plot to file}
