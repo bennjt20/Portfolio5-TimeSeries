@@ -14,7 +14,7 @@ https://www.nimh.nih.gov/health/statistics/suicide#part_2557
 Let's see how we can isolate out only the years for which we have data on both variables, which would be the years 2015-2019.
 
 1) First, installing packages / libraries. 
-After creating my final visualization, then attempting to knit the file, R gave me an error message on line 12, so I removed this command from the knitted version:
+After creating my final visualization, then attempting to knit the file, R gave me an error message on line 20, so I removed this command from the knitted version:
 
 ```{r Packages}
 install.packages('ggplot2')
@@ -26,9 +26,10 @@ library(ggplot2)
 library(tidyr)
 ```
 
-```{r Tibble} 
-install.packages("tibble")
-library("tibble")
+```{r DataCSV} 
+library(readr)
+TimeSeries <- read_csv("~/Documents/GitHub/Portfolio5-TimeSeries/TimeSeries.csv")
+View(TimeSeries)
 ```
 
 2) To isolate the specific years 2015-2019, we can use the following code. This code creates a separate df named "DateRange" containing the specific years we are interested in. 
@@ -47,7 +48,7 @@ ggplot(DateRange, aes(Time)) +
 
 Finally, to switch the color of these lines so that SR is red, we can manually change the colors assigned to each variable. Let's also add a legend.
 
-```{r Test2}
+```{r Test2} 
 colors <- c("SMM" = "blue", "SR" = "red")
 ggplot(DateRange, aes(x=Time)) +
   geom_line(aes(y = Value_SMM, color = "SMM"), size = 1.5) +
